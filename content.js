@@ -20,7 +20,7 @@ window.SITE = {
   // ---- BASICS ---------------------------------------------------------
   name: "Otis Sloan Wood",
   role: "Architect & researcher",
-  tagline: "I study how buildings and landscapes shape health, and I design them together with the people who use them.",
+  tagline: "Designing healthier environments, together with the people who use them.",
   location: "Copenhagen, Denmark",
   email: "obri@kglakademi.dk",
   updated: "October 2026",          // shown in the footer
@@ -34,8 +34,9 @@ window.SITE = {
 
   // Photos: upload to the "images" folder, then write e.g. "images/portrait.jpg".
   // Leave as "" to show a drawing instead.
-  portrait: "",
-  heroImage: "",
+  portrait: "images/portrait.jpg",
+  heroImage: "images/zanzibar-hospital.jpg",
+  heroCaption: "Planting day in Chumbuni District Hospital in Zanzibar, where staff and other volunteers created their own waiting gardens to reduce overcrowding in waiting areas",
   heroCaption: "Fig. 0 — Placeholder drawing. Replace with one of your own photos or drawings.",
 
   // ---- CURRENT POSITIONS (top of the page) -----------------------------
