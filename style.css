@@ -197,13 +197,22 @@ a.row-link:hover .arrow { color: var(--accent); }
 
 /* ---- slowly shifting background colour ---- */
 @property --paper { syntax: '<color>'; inherits: true; initial-value: #f2eee6; }
-@media (prefers-color-scheme: light) and (prefers-reduced-motion: no-preference) {
-  :root { animation: paper-shift 30s ease-in-out infinite alternate; }
-}
+:root { animation: paper-shift 30s ease-in-out infinite alternate; }
 @keyframes paper-shift {
   0%   { --paper: #f2eee6; }   /* paper */
   25%  { --paper: #f6e4d0; }   /* warm sand */
   50%  { --paper: #f3dbd1; }   /* pale clay */
   75%  { --paper: #dfe8d9; }   /* pale sage */
   100% { --paper: #d9e5eb; }   /* cool mist */
+}
+/* phones and computers in dark mode get a darker version of the same drift */
+@media (prefers-color-scheme: dark) {
+  :root { animation-name: paper-shift-dark; }
+}
+@keyframes paper-shift-dark {
+  0%   { --paper: #161512; }
+  25%  { --paper: #1f1912; }
+  50%  { --paper: #221715; }
+  75%  { --paper: #151c16; }
+  100% { --paper: #12191d; }
 }
