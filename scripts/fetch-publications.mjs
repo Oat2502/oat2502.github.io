@@ -76,7 +76,10 @@ async function main() {
   for (let page = 0; page < 10; page++) {
     const url = FEED + (page ? '&page=' + page : '');
     const res = await fetch(url, { headers: { 'User-Agent': 'Mozilla/5.0 (personal website publication sync)' } });
-    if (!res.ok) throw new Error('Portal returned ' + res.status + ' for ' + url);
+    if (!res.ok) {
+      if (page > 0) break; // no further pages (the portal answers 403 here)
+      throw new Error('Portal returned ' + res.status + ' for ' + url);
+    }
     const items = parseRss(await res.text());
     const fresh = items.filter((p) => !seen.has(p.link));
     if (!fresh.length) break;
