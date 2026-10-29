@@ -30,8 +30,8 @@ window.SITE = {
 
   // Photos: upload to the "images" folder, then write e.g. "images/portrait.jpg".
   // Leave as "" to show a drawing instead.
-  portrait: "",
-  heroImage: "",
+  portrait: "images/portrait.jpg",
+  heroImage: "images/zanzibar-hospital.jpg",
   heroCaption: "Fig. 0 — Placeholder drawing. Replace with one of your own photos or drawings.",
 
   // ---- CURRENT POSITIONS (top of the page) -----------------------------
