@@ -59,7 +59,7 @@ main { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
 
 /* ---- hero ---- */
 .hero { padding: clamp(48px, 9vw, 120px) 0 0; }
-.eyebrow { color: var(--muted); margin: 0 0 18px; }
+.eyebrow { color: var(--muted); margin: 0 0 40px; }
 .hero-name {
   font-family: var(--serif); font-weight: 300; margin: 0;
   font-size: clamp(52px, 11vw, 168px); line-height: .92; letter-spacing: -.035em;
