@@ -45,7 +45,7 @@ window.SITE = {
   // Tip: *word* becomes italic, and [text](https://link) becomes a link.
   about: [
     "I’m an architect and researcher at the Royal Danish Academy in Copenhagen. Since 2018 my work has focused on one question: how the built environment affects public health, mostly in sub-Saharan Africa.",
-    "I lived and worked in Tanzania from 2018 to 2021, coordinating prototype housing for *Star Homes*, a large randomised trial on whether better-designed houses can reduce malaria and other diseases. My PhD, *Unbitten*, is part of the [MBD-Free project](https://publichealth.ku.dk/about-the-department/global/research/building-resilience-to-climate-sensitive-mosquito-borne-viral-diseases). It worked with staff and patients at four district hospitals in Zanzibar to co-create building and landscape changes that reduce mosquito-borne disease transmission.",
+    "I lived and worked in Tanzania from 2018 to 2021, coordinating prototype housing for *Star Homes*, a large randomised trial on whether better-designed houses can reduce malaria and other diseases. My PhD, *Unbitten: Reducing risk of hospital-aquired mosquito-borne diseases through adaptations to the built environment*, is part of the [MBD-Free project](https://publichealth.ku.dk/about-the-department/global/research/building-resilience-to-climate-sensitive-mosquito-borne-viral-diseases). It worked with staff and patients at four district hospitals in Zanzibar to co-create building and landscape changes that reduce mosquito-borne disease transmission.",
     "I’m most interested in the space between disciplines: how architects, entomologists and public-health professionals can design together, and how designers make decisions. I also make the visual material for my projects, including photography, film, drone work and drawings.",
   ],
 
@@ -104,7 +104,7 @@ window.SITE = {
     },
     {
       year: "2026",
-      title: "Unbitten [add full thesis title]",
+      title: "Unbitten: Reducing risk of hospital-aquired mosquito-borne diseases through adaptations to the built environment  [add full thesis title]",
       authors: "O. Sloan Wood",
       venue: "PhD thesis, Royal Danish Academy",
       type: "Thesis",
