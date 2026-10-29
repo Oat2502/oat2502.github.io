@@ -20,7 +20,7 @@ window.SITE = {
   // ---- BASICS ---------------------------------------------------------
   name: "Otis Sloan Wood",
   role: "Architect & researcher",
-  tagline: "I study how buildings and landscapes shape health, and I design them together with the people who use them.",
+  tagline: "Designing healthier environments, together with the people who use them.",
   location: "Copenhagen, Denmark",
   email: "obri@kglakademi.dk",
   updated: "October 2026",          // shown in the footer
@@ -32,7 +32,7 @@ window.SITE = {
   // Leave as "" to show a drawing instead.
   portrait: "images/portrait.jpg",
   heroImage: "images/zanzibar-hospital.jpg",
-  heroCaption: "Fig. 0 — Placeholder drawing. Replace with one of your own photos or drawings.",
+  heroCaption: "Planting day in Chumbuni District Hospital in Zanzibar, where staff and other volunteers created their own waiting gardens to reduce overcrowding in waiting areas",
 
   // ---- CURRENT POSITIONS (top of the page) -----------------------------
   now: [
@@ -44,7 +44,7 @@ window.SITE = {
   // ---- ABOUT (one string per paragraph) ---------------------------------
   // Tip: *word* becomes italic, and [text](https://link) becomes a link.
   about: [
-    "I’m an architect and researcher at the Royal Danish Academy in Copenhagen. I have practised for about nine years. Since 2018 my work has focused on one question: how the built environment affects public health, mostly in sub-Saharan Africa.",
+    "I’m an architect and researcher at the Royal Danish Academy in Copenhagen. Since 2018 my work has focused on one question: how the built environment affects public health, mostly in sub-Saharan Africa.",
     "I lived and worked in Tanzania from 2018 to 2021, coordinating prototype housing for *Star Homes*, a large randomised trial on whether better-designed houses can reduce malaria and other diseases. My PhD, *Unbitten*, is part of the [MBD-Free project](https://publichealth.ku.dk/about-the-department/global/research/building-resilience-to-climate-sensitive-mosquito-borne-viral-diseases). It worked with staff and patients at four district hospitals in Zanzibar to co-create building and landscape changes that reduce mosquito-borne disease transmission.",
     "I’m most interested in the space between disciplines: how architects, entomologists and public-health professionals can design together, and how designers make decisions. I also make the visual material for my projects, including photography, film, drone work and drawings.",
   ],
