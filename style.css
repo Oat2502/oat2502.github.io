@@ -192,3 +192,4 @@ a.row-link:hover .arrow { color: var(--accent); }
 /* ---- my changes ---- */
 .hero-name .suffix { font-size: .27em; letter-spacing: 0; }
 .now { display: none; }
+.hero-name { white-space: nowrap; font-size: clamp(32px, 9vw, 130px); }
