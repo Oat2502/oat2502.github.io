@@ -189,3 +189,6 @@ a.row-link:hover .arrow { color: var(--accent); }
   .topbar, .filters, .more, .hero-figure { display: none; }
   .reveal { opacity: 1; transform: none; }
 }
+/* ---- my changes ---- */
+.hero-name .suffix { font-size: .3em; letter-spacing: 0; }
+.now { display: none; }
