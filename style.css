@@ -197,11 +197,11 @@ a.row-link:hover .arrow { color: var(--accent); }
 
 /* ---- background colour that changes as you scroll ---- */
 /* Top of the page uses the first colour, the bottom uses the last. Add or remove colours freely. */
-@property --paper { syntax: '<color>'; inherits: true; initial-value: #f2eee6; }
+@property --paper { syntax: '<color>'; inherits: true; initial-value: #f1ebe0; }
 :root {
-  --scroll-palette: #f2eee6, #f6e4d0, #f3dbd1, #dfe8d9, #d9e5eb;   /* paper, sand, clay, sage, mist */
+  --scroll-palette: #f1ebe0, #f6dec2, #f2cec0, #d8e4d0, #d2e0e9;   /* paper, sand, clay, sage, mist */
   transition: --paper .5s ease-out;
-}
-@media (prefers-color-scheme: dark) {
-  :root { --scroll-palette: #161512, #1f1912, #221715, #151c16, #12191d; }
+  /* same light look on every device, even phones set to dark mode */
+  --paper-2: #e9e3d7; --ink: #1c1b18; --muted: #57524a; --line: #cfc6b5; --accent: #8f3b20;
+  color-scheme: light;
 }
