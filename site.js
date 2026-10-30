@@ -207,33 +207,27 @@
     document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('in'); });
   }
 
-  /* ---------- background colour that follows the scroll position ----------
-     The colours are set in style.css (--scroll-palette). */
+  /* ---------- background colour per section ----------
+     Each section of the page gets its own colour, set in style.css (--section-colours).
+     The colour fades over when a section reaches the middle of the screen. */
   (function () {
-    var root = document.documentElement, cols = [], ticking = false;
-    function hex(h) {
-      h = h.trim().replace('#', '');
-      if (h.length === 3) h = h.replace(/./g, '$&$&');
-      return /^[0-9a-f]{6}$/i.test(h) ? [0, 2, 4].map(function (i) { return parseInt(h.substr(i, 2), 16); }) : null;
+    var root = document.documentElement;
+    var sections = [].slice.call(document.querySelectorAll('main > section[id]')).filter(function (s) { return !s.hidden; });
+    function colours() {
+      return getComputedStyle(root).getPropertyValue('--section-colours').split(',')
+        .map(function (c) { return c.trim(); }).filter(Boolean);
     }
-    function readPalette() {
-      cols = getComputedStyle(root).getPropertyValue('--scroll-palette').split(',').map(hex).filter(Boolean);
+    function setFor(section) {
+      var list = colours(); if (!list.length) return;
+      var i = sections.indexOf(section);
+      root.style.setProperty('--paper', list[Math.max(0, i) % list.length]);
     }
-    function paint() {
-      ticking = false;
-      if (cols.length < 2) return;
-      var max = document.documentElement.scrollHeight - window.innerHeight;
-      var f = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
-      var pos = f * (cols.length - 1), i = Math.min(Math.floor(pos), cols.length - 2), t = pos - i;
-      var c = cols[i].map(function (v, k) { return Math.round(v + (cols[i + 1][k] - v) * t); });
-      root.style.setProperty('--paper', 'rgb(' + c.join(',') + ')');
-    }
-    function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(paint); } }
-    readPalette(); paint();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
-    var mq = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
-    if (mq && mq.addEventListener) mq.addEventListener('change', function () { readPalette(); paint(); });
+    setFor(sections[0]);
+    if (!('IntersectionObserver' in window)) return;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) setFor(en.target); });
+    }, { rootMargin: '-50% 0px -50% 0px' });
+    sections.forEach(function (s) { io.observe(s); });
   })();
 
   /* =================================================================
