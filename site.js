@@ -207,6 +207,35 @@
     document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('in'); });
   }
 
+  /* ---------- background colour that follows the scroll position ----------
+     The colours are set in style.css (--scroll-palette). */
+  (function () {
+    var root = document.documentElement, cols = [], ticking = false;
+    function hex(h) {
+      h = h.trim().replace('#', '');
+      if (h.length === 3) h = h.replace(/./g, '$&$&');
+      return /^[0-9a-f]{6}$/i.test(h) ? [0, 2, 4].map(function (i) { return parseInt(h.substr(i, 2), 16); }) : null;
+    }
+    function readPalette() {
+      cols = getComputedStyle(root).getPropertyValue('--scroll-palette').split(',').map(hex).filter(Boolean);
+    }
+    function paint() {
+      ticking = false;
+      if (cols.length < 2) return;
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      var f = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+      var pos = f * (cols.length - 1), i = Math.min(Math.floor(pos), cols.length - 2), t = pos - i;
+      var c = cols[i].map(function (v, k) { return Math.round(v + (cols[i + 1][k] - v) * t); });
+      root.style.setProperty('--paper', 'rgb(' + c.join(',') + ')');
+    }
+    function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(paint); } }
+    readPalette(); paint();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    var mq = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
+    if (mq && mq.addEventListener) mq.addEventListener('change', function () { readPalette(); paint(); });
+  })();
+
   /* =================================================================
      Placeholder drawings (shown until you add your own images)
      ================================================================= */
