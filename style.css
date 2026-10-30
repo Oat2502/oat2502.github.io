@@ -195,12 +195,14 @@ a.row-link:hover .arrow { color: var(--accent); }
 .now { display: none; }
 .hero-name { white-space: nowrap; font-size: clamp(32px, 9vw, 130px); }
 
-/* ---- background colour that changes as you scroll ---- */
-/* Top of the page uses the first colour, the bottom uses the last. Add or remove colours freely. */
+/* ---- background colour per section ----
+   One colour per section, in page order: top, About, Projects, Publications,
+   Talks, Teaching, Contact. If there are fewer colours than sections, they repeat. */
 @property --paper { syntax: '<color>'; inherits: true; initial-value: #f1ebe0; }
 :root {
-  --scroll-palette: #f1ebe0, #f6dec2, #f2cec0, #d8e4d0, #d2e0e9;   /* paper, sand, clay, sage, mist */
-  transition: --paper .5s ease-out;
+  --section-colours: #f1ebe0, #f6dec2, #f2cec0, #d8e4d0, #d2e0e9, #e8dccb, #f1ebe0;
+  /*                 top      about    projects publications talks teaching contact */
+  transition: --paper .9s ease;
   /* same light look on every device, even phones set to dark mode */
   --paper-2: #e9e3d7; --ink: #1c1b18; --muted: #57524a; --line: #cfc6b5; --accent: #8f3b20;
   color-scheme: light;
