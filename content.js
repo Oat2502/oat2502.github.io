@@ -53,7 +53,15 @@ window.SITE = {
     "I lived and worked in Tanzania from 2018 to 2021, coordinating prototype housing for *Star Homes*, a large randomised trial on whether better-designed houses can reduce malaria and other diseases. My PhD, *Unbitten*, is part of the [MBD-Free project](https://publichealth.ku.dk/about-the-department/global/research/building-resilience-to-climate-sensitive-mosquito-borne-viral-diseases). It worked with staff and patients at four district hospitals in Zanzibar to co-create building and landscape changes that reduce mosquito-borne disease transmission.",
     "I’m most interested in the space between disciplines: how architects, entomologists and public-health professionals can design together, and how designers make decisions. I also make the visual material for my projects, including photography, film, drone work and drawings.",
   ],
-
+   
+  // ---- NEWS (your latest Bluesky posts — updated automatically) -------
+  // The site shows your newest posts from Bluesky, with their photo or video still.
+  // Replies and reposts are skipped. Set bluesky: "" to hide the section.
+  bluesky: "otissloanwood.bsky.social",
+  newsCount: 3,                 // how many posts to show
+  newsLength: 180,              // how many characters of each post to show before "…"
+  newsOnlyWithImages: false,    // true = only show posts that have a photo or video
+   
   // ---- LINKS (shown in Contact) ----------------------------------------
   links: [
     { label: "LinkedIn",        url: "https://www.linkedin.com/in/otis-sloan-wood/" },
