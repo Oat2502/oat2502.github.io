@@ -179,13 +179,82 @@
     return '<li><a href="' + esc(l.url) + '" target="_blank" rel="noopener">' + esc(l.label) + '</a></li>';
   }).join('');
 
+  /* ---------- news: latest Bluesky posts, fetched automatically ---------- */
+  var linkedin = list(S.links).filter(function (l) { return /linkedin/i.test(l.url); })[0];
+  var newsBtns = '';
+  if (S.bluesky) newsBtns += '<a class="more mono" href="https://bsky.app/profile/' + esc(S.bluesky) + '" target="_blank" rel="noopener">Follow on Bluesky ↗</a>';
+  if (linkedin) newsBtns += '<a class="more mono" href="' + esc(linkedin.url) + '" target="_blank" rel="noopener">LinkedIn ↗</a>';
+  $('news-links').innerHTML = newsBtns;
+
+  function postImage(embed) {
+    if (!embed) return '';
+    var m = embed.media || embed;               // posts that quote another post keep their media in .media
+    if (m.images && m.images.length) return m.images[0].fullsize || m.images[0].thumb;
+    if (m.thumbnail) return m.thumbnail;         // video
+    if (m.external && m.external.thumb) return m.external.thumb; // link card
+    return '';
+  }
+  function excerpt(text, max) {
+    text = String(text || '')
+      .replace(/(\s*#[\w-]+)+\s*$/, '')        // drop the block of hashtags at the end
+      .replace(/(^|\s)#(\w)/g, '$1$2')          // keep in-text hashtags as plain words
+      .replace(/\s+/g, ' ').trim();
+    if (text.length <= max) return text;
+    return text.slice(0, max).replace(/\s+\S*$/, '') + '…';
+  }
+  function niceDate(iso) {
+    var d = new Date(iso);
+    return isNaN(d) ? '' : d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+  }
+
+  if (S.bluesky) {
+    $('news-list').innerHTML = '<p class="news-loading mono">Loading latest posts…</p>';
+    fetch('https://public.api.bsky.app/xrpc/app.bsky.feed.getAuthorFeed?filter=posts_no_replies&limit=30&actor=' + encodeURIComponent(S.bluesky))
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function (data) {
+        var posts = list(data.feed).filter(function (f) { return !f.reason; })   // skip reposts of other people
+          .map(function (f) { return f.post; });
+        if (S.newsOnlyWithImages) posts = posts.filter(function (p) { return postImage(p.embed); });
+        posts = posts.slice(0, S.newsCount || 3);
+        if (!posts.length) throw new Error('no posts');
+        $('news-list').innerHTML = posts.map(function (p, i) {
+          var img = postImage(p.embed);
+          var url = 'https://bsky.app/profile/' + p.author.handle + '/post/' + p.uri.split('/').pop();
+          return '<article class="news-item">' +
+            '<div class="img"><a href="' + esc(url) + '" target="_blank" rel="noopener">' +
+              (img ? '<img src="' + esc(img) + '" alt="" loading="lazy">' : planDrawing(i + 1)) + '</a></div>' +
+            '<div class="meta mono">' + esc(niceDate(p.record.createdAt)) + '</div>' +
+            '<p class="news-text"><a href="' + esc(url) + '" target="_blank" rel="noopener">' + esc(excerpt(p.record.text, S.newsLength || 180)) + '</a></p>' +
+            '<a class="read mono" href="' + esc(url) + '" target="_blank" rel="noopener">Read post ↗</a>' +
+            '</article>';
+        }).join('');
+      })
+      .catch(function () {
+        // Bluesky unreachable or no posts: hide the section quietly
+        $('news').hidden = true;
+        var a = document.querySelector('.nav a[href="#news"]'); if (a) a.hidden = true;
+        numberSections();
+      });
+  }
+
   /* ---------- hide empty sections ---------- */
-  [['projects', S.projects], ['publications', S.publications], ['talks', S.talks]].forEach(function (x) {
+  [['news', S.bluesky ? [1] : []], ['projects', S.projects], ['publications', S.publications], ['talks', S.talks]].forEach(function (x) {
     if (!list(x[1]).length) {
       $(x[0]).hidden = true;
       var a = document.querySelector('.nav a[href="#' + x[0] + '"]'); if (a) a.hidden = true;
     }
   });
+
+  /* ---------- number the visible sections 01, 02, 03 … ---------- */
+  function numberSections() {
+    var n = 0;
+    document.querySelectorAll('main > section.section').forEach(function (sec) {
+      if (sec.hidden) return;
+      var num = sec.querySelector('.section-head .mono');
+      if (num) num.textContent = String(++n).padStart(2, '0');
+    });
+  }
+  numberSections();
 
   /* ---------- nav highlight + reveal ---------- */
   if ('IntersectionObserver' in window) {
@@ -212,7 +281,7 @@
      The colour fades over when a section reaches the middle of the screen. */
   (function () {
     var root = document.documentElement;
-    var sections = [].slice.call(document.querySelectorAll('main > section[id]')).filter(function (s) { return !s.hidden; });
+    var sections = [].slice.call(document.querySelectorAll('main > section[id]'));
     function colours() {
       return getComputedStyle(root).getPropertyValue('--section-colours').split(',')
         .map(function (c) { return c.trim(); }).filter(Boolean);
