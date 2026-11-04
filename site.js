@@ -186,13 +186,22 @@
   if (linkedin) newsBtns += '<a class="more mono" href="' + esc(linkedin.url) + '" target="_blank" rel="noopener">LinkedIn ↗</a>';
   $('news-links').innerHTML = newsBtns;
 
+  // Finds the first picture in a post, whatever kind of attachment it is
+  // (single photos, photo galleries, video stills, link previews, quoted posts …)
   function postImage(embed) {
-    if (!embed) return '';
-    var m = embed.media || embed;               // posts that quote another post keep their media in .media
-    if (m.images && m.images.length) return m.images[0].fullsize || m.images[0].thumb;
-    if (m.thumbnail) return m.thumbnail;         // video
-    if (m.external && m.external.thumb) return m.external.thumb; // link card
-    return '';
+    var found = '';
+    (function walk(o, depth) {
+      if (found || !o || typeof o !== 'object' || depth > 6) return;
+      var keys = ['thumbnail', 'thumb', 'fullsize'];   // smaller versions first, so the page stays fast
+      for (var k = 0; k < keys.length; k++) {
+        if (typeof o[keys[k]] === 'string' && /^https?:/.test(o[keys[k]])) { found = o[keys[k]]; return; }
+      }
+      // look in the most likely places first, then anything else
+      ['images', 'items', 'media', 'external', 'record'].concat(Object.keys(o)).forEach(function (key) {
+        if (!found && o[key] && typeof o[key] === 'object') walk(o[key], depth + 1);
+      });
+    })(embed, 0);
+    return found;
   }
   function excerpt(text, max) {
     text = String(text || '')
