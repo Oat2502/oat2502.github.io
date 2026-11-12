@@ -151,6 +151,7 @@ a.row-link:hover .arrow { color: var(--accent); }
 .news-links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
 .news-links .more { margin-top: 0; text-decoration: none; display: inline-block; }
 .news-loading { color: var(--muted); grid-column: 1 / -1; }
+.news-dots { display: none; }
 
 /* teaching / awards */
 .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gutter); }
@@ -199,7 +200,16 @@ a.row-link:hover .arrow { color: var(--accent); }
   .row .when { grid-column: 1 / -1; padding-top: 0; }
   .row .title { font-size: 19px; }
   .hero-figure img, .hero-figure svg { aspect-ratio: 4 / 3; }
-  .news { grid-template-columns: 1fr; }
+  /* phones: one post at a time, swipe sideways for the next */
+  .news {
+    display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: 4px;
+  }
+  .news::-webkit-scrollbar { display: none; }
+  .news-item { flex: 0 0 86%; scroll-snap-align: start; }
+  .news-dots { display: flex; gap: 8px; justify-content: center; margin-top: 18px; }
+  .news-dots span { width: 7px; height: 7px; border-radius: 50%; background: var(--line); transition: background .3s; }
+  .news-dots span.on { background: var(--ink); }
 }
 @media print {
   .topbar, .filters, .more, .hero-figure { display: none; }
@@ -212,12 +222,12 @@ a.row-link:hover .arrow { color: var(--accent); }
 .hero-name { white-space: nowrap; font-size: clamp(32px, 9vw, 130px); }
 
 /* ---- background colour per section ----
-   One colour per section, in page order: top, News, About, Projects,
+   One colour per section, in page order: top, About, News, Projects,
    Publications, Talks, Teaching, Contact. If there are fewer colours than sections, they repeat. */
 @property --paper { syntax: '<color>'; inherits: true; initial-value: #f1ebe0; }
 :root {
-  --section-colours: #f1ebe0, #f3e6c4, #f6dec2, #f2cec0, #d8e4d0, #d2e0e9, #e8dccb, #f1ebe0;
-  /*                 top      news     about    projects publications talks teaching contact */
+  --section-colours: #f1ebe0, #f6dec2, #f3e6c4, #f2cec0, #d8e4d0, #d2e0e9, #e8dccb, #f1ebe0;
+  /*                 top      about    news     projects publications talks teaching contact */
   transition: --paper .9s ease;
   /* same light look on every device, even phones set to dark mode */
   --paper-2: #e9e3d7; --ink: #1c1b18; --muted: #57524a; --line: #cfc6b5; --accent: #8f3b20;
