@@ -79,7 +79,7 @@ window.SITE = {
       place: "Zanzibar, Tanzania",
       role: "Architect & PhD researcher",
       text: "A transdisciplinary project at four district hospitals that combines environmental monitoring, archival analysis, co-creation workshops and material practice. With staff and patients, we design building and landscape changes that reduce contact between people and mosquitoes.",
-      image: "",
+      image: "images/mbd-free.jpg",
       link: "https://publichealth.ku.dk/about-the-department/global/research/building-resilience-to-climate-sensitive-mosquito-borne-viral-diseases",
     },
     {
@@ -88,7 +88,7 @@ window.SITE = {
       place: "Mtwara, Tanzania",
       role: "Architect, on-site coordination",
       text: "110 healthy homes with separate fly-proof latrines in 60 villages, built and tested in a randomised trial. The houses combine screened, raised and well-ventilated design with cleaner cooking and water.",
-      image: "",
+      image: "images/star-homes.jpg",
       link: "https://royaldanishacademy.com/en/case/star-homes",
     },
     {
@@ -97,7 +97,7 @@ window.SITE = {
       place: "Online course",
       role: "Co-author & producer",
       text: "The Royal Danish Academy’s first MOOC. It’s a free course on designing houses as health interventions, drawing on the Star Homes research.",
-      image: "",
+      image: "images/healthy-homes.jpg",
       link: "https://www.udemy.com/course/healthyhomes",
     },
   ],
