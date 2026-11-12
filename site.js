@@ -237,6 +237,17 @@
             '<a class="read mono" href="' + esc(url) + '" target="_blank" rel="noopener">Read post ↗</a>' +
             '</article>';
         }).join('');
+        // dots under the posts on phones, showing which one you're looking at
+        var dots = $('news-dots'), box = $('news-list');
+        dots.innerHTML = posts.length > 1 ? posts.map(function (_, i) { return '<span' + (i ? '' : ' class="on"') + '></span>'; }).join('') : '';
+        box.addEventListener('scroll', function () {
+          var items = box.children, best = 0, bestDist = Infinity;
+          for (var i = 0; i < items.length; i++) {
+            var d = Math.abs(items[i].offsetLeft - box.offsetLeft - box.scrollLeft);
+            if (d < bestDist) { bestDist = d; best = i; }
+          }
+          [].forEach.call(dots.children, function (dot, i) { dot.classList.toggle('on', i === best); });
+        }, { passive: true });
       })
       .catch(function () {
         // Bluesky unreachable or no posts: hide the section quietly
